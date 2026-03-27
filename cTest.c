@@ -1,6 +1,8 @@
 #define PY_SSIZE_T_CLEAN
 #include <Python.h>
 
+#include <stdio.h>
+
 int
 main(int argc, char *argv[])
 {
@@ -20,8 +22,9 @@ main(int argc, char *argv[])
     }
     PyConfig_Clear(&config);
 
-    PyRun_SimpleString("from time import time,ctime\n"
-                       "print('Today is', ctime(time()))\n");
+    FILE *pythonFile = fopen("pyTest.py", "r");
+    PyRun_SimpleFile(pythonFile, "pyTest.py");
+    
     if (Py_FinalizeEx() < 0) {
         exit(120);
     }
